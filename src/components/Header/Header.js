@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions'
+import * as actions from '../../actions';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +14,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
+
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -114,7 +116,7 @@ class Header extends React.Component {
                             {this.handleLabelIsLogged()}
                         </IconButton>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            ReactRedux
+                            <Link to="/">ReactRedux</Link>
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
@@ -130,16 +132,26 @@ class Header extends React.Component {
                         </div>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <MailIcon />
-                            </IconButton>
-                            <IconButton
-                                aria-haspopup="true"
-                                // onClick={this.handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
+                            <Link to="/contact">
+
+                                <IconButton
+                                    aria-haspopup="true"
+                                    // onClick={this.handleProfileMenuOpen}
+                                    color="secondary"
+                                >
+                                    <MailIcon />
+                                </IconButton>
+                            </Link>
+                            <Link to="/user">
+                                <IconButton
+                                    aria-haspopup="true"
+                                    color="secondary"
+                                    // onClick={this.handleProfileMenuOpen}
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                            </Link>
+
                         </div>
                     </Toolbar>
                 </AppBar>
