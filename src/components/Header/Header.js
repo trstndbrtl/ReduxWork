@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions'
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -218,4 +221,10 @@ class Header extends React.Component {
     }
 }
 
-export default withStyles(styles)(Header);
+const mapStateToProps = state => {
+  return {
+
+  };
+};
+
+export default connect(mapStateToProps, actions)(withStyles(styles)(Header));
