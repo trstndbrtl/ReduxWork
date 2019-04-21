@@ -90,86 +90,32 @@ const styles = theme => ({
 });
 
 class Header extends React.Component {
-    state = {
-        anchorEl: null,
-        mobileMoreAnchorEl: null,
+
+    handleIsLogged = () => {
+        this.props.setLogin(!this.props.isLogged);
     };
 
-    handleProfileMenuOpen = event => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
-
-    handleMenuClose = () => {
-        this.setState({ anchorEl: null });
-        this.handleMobileMenuClose();
-    };
-
-    handleMobileMenuOpen = event => {
-        this.setState({ mobileMoreAnchorEl: event.currentTarget });
-    };
-
-    handleMobileMenuClose = () => {
-        this.setState({ mobileMoreAnchorEl: null });
+    handleLabelIsLogged = () => {
+        if (this.props.isLogged) {
+            return <MoreIcon/>;
+        } else {
+            return <MenuIcon />;
+        }
     };
 
     render() {
-        const { anchorEl, mobileMoreAnchorEl } = this.state;
         const { classes } = this.props;
-        const isMenuOpen = Boolean(anchorEl);
-        const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-        const renderMenu = (
-            <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={isMenuOpen}
-                onClose={this.handleMenuClose}
-            >
-                <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-            </Menu>
-        );
-
-        const renderMobileMenu = (
-            <Menu
-                anchorEl={mobileMoreAnchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={isMobileMenuOpen}
-                onClose={this.handleMenuClose}
-            >
-                <MenuItem onClick={this.handleMobileMenuClose}>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <MailIcon />
-                        </Badge>
-                    </IconButton>
-                    <p>Messages</p>
-                </MenuItem>
-                <MenuItem onClick={this.handleMobileMenuClose}>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={11} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
-                    <p>Notifications</p>
-                </MenuItem>
-                <MenuItem onClick={this.handleProfileMenuOpen}>
-                    <IconButton color="inherit">
-                        <AccountCircle />
-                    </IconButton>
-                    <p>Profile</p>
-                </MenuItem>
-            </Menu>
-        );
 
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                            <MenuIcon />
+                        <IconButton
+                            aria-haspopup="true"
+                            onClick={this.handleIsLogged}
+                            color="inherit"
+                        >
+                            {this.handleLabelIsLogged()}
                         </IconButton>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                             ReactRedux
@@ -189,33 +135,18 @@ class Header extends React.Component {
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={17} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
+                                <MailIcon />
                             </IconButton>
                             <IconButton
-                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                                 aria-haspopup="true"
-                                onClick={this.handleProfileMenuOpen}
+                                // onClick={this.handleProfileMenuOpen}
                                 color="inherit"
                             >
                                 <AccountCircle />
                             </IconButton>
                         </div>
-                        <div className={classes.sectionMobile}>
-                            <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                                <MoreIcon />
-                            </IconButton>
-                        </div>
                     </Toolbar>
                 </AppBar>
-                {renderMenu}
-                {renderMobileMenu}
             </div>
         );
     }
@@ -223,7 +154,7 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-
+    isLogged : state.login.isLogged
   };
 };
 
