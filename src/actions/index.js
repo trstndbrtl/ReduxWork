@@ -6,7 +6,6 @@ export function setLogin(isLogged){
             type : SET_LOGIN,
             payload : isLogged
         });
-        dispatch(setTracker());
     }
 }
 
